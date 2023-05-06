@@ -1,10 +1,12 @@
-from tkinter import *
+import customtkinter as csTK
 from classes import cell
 from values import CELL_HEIGHT, CELL_WIDTH, COLUMN_COUNT, DEFAULT_ROW_COUNT
 
-root = Tk()
+root = csTK.CTk()
 root.state('zoomed')
 root.title('MONEY TRACKING')
+
+csTK.set_appearance_mode('dark')
 
 my_x = 20
 my_y = 50

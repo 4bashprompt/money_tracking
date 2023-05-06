@@ -1,47 +1,26 @@
-import time, csv, tkinter
+import time, csv
+import customtkinter as csTK
 
 current = time.localtime()
 
-class action : #no need for action class. create a new file for methods of current action class, merge action and cell classes inder cell
 
-    def __init__(self, id, description, amount, time = time.strftime('%d/%m/%Y', current)) :
+class cell :
+    cell_ids = 0 # create a func to find last id at datatable and use instead of this to find new id
+
+    def __init__(self, x, y, id = cell_ids + 1, description = '', amount = 0, time = time.strftime('%d/%m/%Y', current)) :
+        self.x = x
+        self.y = y
         self.description = description
         self.amount = amount
         self.time = time
         self.id = id
 
-    
-
-    def __repr__(self) :
-        return f'id = {self.id} spent on {self.description} | amount {self.amount}€ | {self.time}'
-
-
-
-    def extract_data_from_table(self) :
-        pass # use this to make data readible by csv and send it to save_data as paramater to be saved to file
-
-
-    @staticmethod
-    def save_data(data) : # function does not work properly--> overwriting existing data in csv
-        with open('data.csv', 'w', newline='') as file :
-            writer= csv.writer(file)
-            writer.writerow([self.id, self.description, self.amount, self.time]) # use pandas learn it
-
-
-
-
-
-
-
-class cell :
-    def __init__(self, x, y) :
-        self.x = x
-        self.y = y
+        cell.cell_ids += 1
 
 
 
     def create_cell(self, location) :
-        entry = tkinter.Entry(location, font=('Arial',15,'bold'))
+        entry = csTK.CTkEntry(location, font=('Arial',15,'bold'))
 
         self.cell_object = entry
 
@@ -50,5 +29,5 @@ class cell :
     def save_button(location) :
         #data_to_save = action.extract_data_from_table(self) 
 
-        btn = tkinter.Button(location, text='save', command = action.save_data(data_to_save))
+        btn = csTK.CTkButton(location, text='save') # command = action.save_data(data_to_save)
         return btn
