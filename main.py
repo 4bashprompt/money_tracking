@@ -15,7 +15,7 @@ my_y = 50
 
 
 mycell = cell(20,50, root)
-mycell.generate_line(current_id)
+mycell.generate_new_line(current_id)
 mycell.id_obj.place(x = mycell.x + 200, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
 mycell.description_obj.place(x = mycell.x + 400, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
 mycell.amount_obj.place(x = mycell.x + 600, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)

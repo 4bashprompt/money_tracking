@@ -23,12 +23,12 @@ class cell :
         self.id_obj = label
     
     def __create_description_enrty(self) :
-        entry = csTK.CTkEntry(self.location, font=('Arial',15,'bold'))
+        entry = csTK.CTkEntry(self.location, font=('Arial',12,'bold'))
 
         self.description_obj = entry
 
     def __create_amount_enrty(self) :
-        entry = csTK.CTkEntry(self.location, font=('Arial',15,'bold'))
+        entry = csTK.CTkEntry(self.location, font=('Arial',12,'bold'))
 
         self.amount_obj = entry
 
@@ -41,7 +41,7 @@ class cell :
 
     
 
-    def generate_line(self, id) :
+    def generate_new_line(self, id) :
         self.__create_id_label(id)
         self.__create_description_enrty()
         self.__create_amount_enrty()
