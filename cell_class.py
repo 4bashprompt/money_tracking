@@ -20,6 +20,7 @@ class cell :
     def __create_id_label(self, id) :
         label = csTK.CTkLabel(self.location, text=id)
 
+        self.id = id
         self.id_obj = label
     
     def __create_description_enrty(self) :
@@ -37,6 +38,7 @@ class cell :
 
         label = csTK.CTkLabel(self.location, text=time)
 
+        self.time = time
         self.time_obj = label
 
     
@@ -51,21 +53,27 @@ class cell :
 
 
     @staticmethod
-    def __extract_data_from_table() :
-        pass # use this to make data readible by csv and send it to save_data as paramater to be saved to file
+    def __read_table() :
+        pass
 
 
-    @staticmethod
-    def __save_data(data) : # function does not work properly--> overwriting existing data in csv
+    @classmethod
+    def __save_data(cls) :
         with open('data.csv', 'w', newline='') as file :
             writer= csv.writer(file)
-            writer.writerow([self.id, self.description, self.amount, self.time]) # use pandas learn it
+
+            writer.writerow(['id', 'description', 'amount', 'time'])
+
+            for line in cell.all_lines :
+                line_description = line.description_obj.get()
+                line_amount = line.amount_obj.get()
+                writer.writerow([line.id, line_description, line_amount, line.time])
+
 
     @staticmethod
     def save_button(location) :
-        #data_to_save = cell.__extract_data_from_table() 
-
-        btn = csTK.CTkButton(location, text='save') # command = cell.__save_data(data_to_save)
+        
+        btn = csTK.CTkButton(location, text='save', command = cell.__save_data)
         return btn
 
 
