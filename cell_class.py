@@ -49,7 +49,9 @@ class cell :
         self.__create_amount_enrty()
         self.__create_time_enrty()
 
-
+    @staticmethod
+    def create_label(location, text) :
+        return csTK.CTkLabel(location, text=text, font=('Arial',15,'bold'))
 
 
     @staticmethod

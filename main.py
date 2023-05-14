@@ -18,17 +18,23 @@ top_frame = csTK.CTkFrame(root, width=900, height=75, border_width=2, border_col
 top_frame.place(x = 500, y = 50)
 
 my_x = 50
-my_y = 50
+my_y = 20
 
-# create frmaes for extra stuff
+cell.create_label(top_frame, 'No').place(x = my_x, y = my_y, width = CELL_WIDTH, height = CELL_HEIGHT)
+cell.create_label(top_frame, 'Description').place(x = my_x + 200, y = my_y, width = CELL_WIDTH, height = CELL_HEIGHT)
+cell.create_label(top_frame, 'Amount').place(x = my_x + 400, y = my_y, width = CELL_WIDTH, height = CELL_HEIGHT)
+cell.create_label(top_frame, 'Date').place(x = my_x + 600, y = my_y, width = CELL_WIDTH, height = CELL_HEIGHT)
 
 
-mycell = cell(20,50, main_frame)
-mycell.generate_new_line(current_id)
-mycell.id_obj.place(x = mycell.x, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
-mycell.description_obj.place(x = mycell.x + 200, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
-mycell.amount_obj.place(x = mycell.x + 400, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
-mycell.time_obj.place(x = mycell.x + 600, y = mycell.y,width = CELL_WIDTH, height = CELL_HEIGHT)
+for _ in range(3) :
+    mycell = cell(my_x,my_y, main_frame)
+    mycell.generate_new_line(current_id)
+    mycell.id_obj.place(x = mycell.x, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
+    mycell.description_obj.place(x = mycell.x + 200, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
+    mycell.amount_obj.place(x = mycell.x + 400, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
+    mycell.time_obj.place(x = mycell.x + 600, y = mycell.y,width = CELL_WIDTH, height = CELL_HEIGHT)
+    my_y += 75
+    current_id += 1
 
 
 save_button = cell.save_button(side_frame)
