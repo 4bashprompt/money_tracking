@@ -1,6 +1,6 @@
 import customtkinter as csTK
 from cell_class import cell
-from values import CELL_HEIGHT, CELL_WIDTH, COLUMN_COUNT, DEFAULT_ROW_COUNT, current_id
+from values import CELL_HEIGHT, CELL_WIDTH, COLUMN_COUNT, DEFAULT_ROW_COUNT, current_id, displayed_old_line_id
 
 root = csTK.CTk()
 root.state('zoomed')
@@ -25,6 +25,17 @@ cell.create_label(top_frame, 'Description').place(x = my_x + 200, y = my_y, widt
 cell.create_label(top_frame, 'Amount').place(x = my_x + 400, y = my_y, width = CELL_WIDTH, height = CELL_HEIGHT)
 cell.create_label(top_frame, 'Date').place(x = my_x + 600, y = my_y, width = CELL_WIDTH, height = CELL_HEIGHT)
 
+
+for _ in range(3) :
+    mycell = cell(my_x,my_y, main_frame)
+    mycell.display_saved_data(displayed_old_line_id)
+    mycell.id_obj.place(x = mycell.x, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
+    mycell.description_obj.place(x = mycell.x + 200, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
+    mycell.amount_obj.place(x = mycell.x + 400, y = mycell.y, width = CELL_WIDTH, height = CELL_HEIGHT)
+    mycell.time_obj.place(x = mycell.x + 600, y = mycell.y,width = CELL_WIDTH, height = CELL_HEIGHT)
+    my_y += 75
+    current_id += 1
+    displayed_old_line_id += 1 # make this part more dynamical
 
 for _ in range(3) :
     mycell = cell(my_x,my_y, main_frame)
