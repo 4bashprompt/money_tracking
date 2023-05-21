@@ -1,0 +1,11 @@
+!!! try useing class as your main to make then reusable to enable 6th point !!!
+
+1. fix scrolling system (make it look better)
+
+2. check if amount is float/int (use binding to disable non numeric key strokes maybe / otherwise check when saving and total money calculation)
+   
+3. add total MONEY 
+4. make total money calculation automatic when amount has been changed (try using binding) (not necessry but good to have)
+5. new line generation
+6. change files based on month you are in (either pre determined as a seperate window or in the main itself)
+7. add monthly fixed amount to spend on (seperate for each month)
