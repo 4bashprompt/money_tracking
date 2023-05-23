@@ -4,6 +4,10 @@ CELL_WIDTH = 200
 COLUMN_COUNT = 4
 DEFAULT_ROW_COUNT = 10
 
-current_id = 1
+CELL_X = 50 
+CELL_Y = 20
+
+CELL_COL = 0
+CELL_ROW = 0
 
 displayed_old_line_id = 1

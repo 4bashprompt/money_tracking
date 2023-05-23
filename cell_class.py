@@ -1,7 +1,7 @@
 import csv
 import customtkinter as csTK
 from datetime import date
-
+from values import *
 
 
 
@@ -9,22 +9,32 @@ class cell :
     today = date.today()
     all_lines = []
 
-    def __init__(self, x, y, location) :
-        self.x = x
-        self.y = y
+    def __init__(self, column, row, location) :
+        self.column = column
+        self.row = row
         self.location = location
 
-        cell.all_lines.append(self) 
-
-
-    def __create_id_label(self, id) :
-        label = csTK.CTkLabel(self.location, text=id)
+        id = cell.get_current_id()
 
         self.id = id
+
+        cell.all_lines.append(self)
+
+    @staticmethod
+    def get_current_id() :
+        if cell.all_lines == [] :
+            return 1
+        else :
+            return cell.all_lines[-1].id
+
+
+    def __create_id_label(self) :
+        label = csTK.CTkLabel(self.location, text=id, width = CELL_WIDTH, height = CELL_HEIGHT)
+
         self.id_obj = label
     
     def __create_description_enrty(self, old_description = '') :
-        entry = csTK.CTkEntry(self.location, font=('Arial',12,'bold'))
+        entry = csTK.CTkEntry(self.location, width = CELL_WIDTH, height = CELL_HEIGHT, font=('Arial',12,'bold'))
 
         if old_description :
             entry.insert(-1, old_description)
@@ -32,7 +42,7 @@ class cell :
         self.description_obj = entry
 
     def __create_amount_enrty(self, old_amount = '') :
-        entry = csTK.CTkEntry(self.location, font=('Arial',12,'bold'))
+        entry = csTK.CTkEntry(self.location, width = CELL_WIDTH, height = CELL_HEIGHT, font=('Arial',12,'bold'))
 
         if old_amount :
             entry.insert(-1, old_amount)
@@ -48,22 +58,18 @@ class cell :
         else :
             time = old_time
 
-        label = csTK.CTkLabel(self.location, text=time)
+        label = csTK.CTkLabel(self.location, text=time, width = CELL_WIDTH, height = CELL_HEIGHT)
 
-        self.time = time
+        self.time = time #### 1!!
         self.time_obj = label
 
     
 
-    def generate_new_line(self, id) :
-        self.__create_id_label(id)
+    def generate_new_line(self) :
+        self.__create_id_label()
         self.__create_description_enrty()
         self.__create_amount_enrty()
         self.__create_time_label()
-
-    @staticmethod
-    def create_label(location, text) :
-        return csTK.CTkLabel(location, text=text, font=('Arial',15,'bold'))
 
 
     @staticmethod
@@ -74,21 +80,29 @@ class cell :
             return list(reader)
 
 
-    def display_saved_data(self, old_id) :
+    #current_id = read_table()[-1]['id'] + 1
+    #line_id_to_display = cell.all_lines[-1]
+
+    @staticmethod
+    def saved_data_amount() :
+        return len(cell.read_table())
+
+    def display_saved_data(self) :
         reader = cell.read_table()
 
-        row = reader[old_id - 1]
+        if reader :
+            row = reader[cell.get_current_id() - 1]
 
-        self.__create_id_label(row['id'])
-        self.__create_description_enrty(row['description'])
-        self.__create_amount_enrty(row['amount'])
-        self.__create_time_label(row['time'])
+            self.__create_id_label()
+            self.__create_description_enrty(row['description'])
+            self.__create_amount_enrty(row['amount'])
+            self.__create_time_label(row['time'])
 
 
 
 
     @classmethod
-    def __save_data(cls) :
+    def save_data(cls) :
         with open('data.csv', 'w', newline='') as file :
             field_names = ['id', 'description', 'amount', 'time']
 
@@ -107,14 +121,6 @@ class cell :
                     'time' : line.time
                 })
 
-
-
-
-    @staticmethod
-    def save_button(location) :
-        
-        btn = csTK.CTkButton(location, text='save', command = cell.__save_data)
-        return btn
 
 
 
