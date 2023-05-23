@@ -29,12 +29,12 @@ class cell :
 
 
     def __create_id_label(self) :
-        label = csTK.CTkLabel(self.location, text=id, width = CELL_WIDTH, height = CELL_HEIGHT)
+        label = csTK.CTkLabel(self.location, text=id, width = CELL_WIDTH, height = CELL_HEIGHT, font = CELL_FONT)
 
         self.id_obj = label
     
     def __create_description_enrty(self, old_description = '') :
-        entry = csTK.CTkEntry(self.location, width = CELL_WIDTH, height = CELL_HEIGHT, font=('Arial',12,'bold'))
+        entry = csTK.CTkEntry(self.location, width = CELL_WIDTH, height = CELL_HEIGHT, font=CELL_FONT)
 
         if old_description :
             entry.insert(-1, old_description)
@@ -42,7 +42,7 @@ class cell :
         self.description_obj = entry
 
     def __create_amount_enrty(self, old_amount = '') :
-        entry = csTK.CTkEntry(self.location, width = CELL_WIDTH, height = CELL_HEIGHT, font=('Arial',12,'bold'))
+        entry = csTK.CTkEntry(self.location, width = CELL_WIDTH, height = CELL_HEIGHT, font=CELL_FONT)
 
         if old_amount :
             entry.insert(-1, old_amount)
@@ -58,7 +58,7 @@ class cell :
         else :
             time = old_time
 
-        label = csTK.CTkLabel(self.location, text=time, width = CELL_WIDTH, height = CELL_HEIGHT)
+        label = csTK.CTkLabel(self.location, text=time, width = CELL_WIDTH, height = CELL_HEIGHT, font = CELL_FONT)
 
         self.time = time #### 1!!
         self.time_obj = label

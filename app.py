@@ -8,7 +8,7 @@ class side_frame(customtkinter.CTkFrame) :
 
         self.configure(width = 350, height = 700, border_width = 2, border_color = 'aquamarine2')
 
-        self.save_button = customtkinter.CTkButton(self, text='save', font=('Arial',15), width=100, height=50, command = cell.save_data)
+        self.save_button = customtkinter.CTkButton(self, text='save', font=BUTTON_FONT, width=100, height=50, command = cell.save_data)
         self.save_button.grid(row = 0, column = 0, padx = (25, 100), pady = (600, 25), sticky = 'sw')
 
 
@@ -18,19 +18,19 @@ class top_frame(customtkinter.CTkFrame) :
     def __init__(self, master) :
         super().__init__(master)
 
-        self.configure(width=900, height=75, border_width=2, border_color='aquamarine2')
+        self.configure(width=950, height=75, border_width=2, border_color='aquamarine2')
 
-        self.no_label = customtkinter.CTkLabel(self, text='No', width = CELL_WIDTH, height = CELL_HEIGHT, font=('Arial',15,'bold'))
-        self.no_label.grid(row = 0, column = 0, padx = (10, 15), pady = (12, 12.5))
+        self.no_label = customtkinter.CTkLabel(self, text='No', width = CELL_WIDTH, height = CELL_HEIGHT, font=LABEL_FONT)
+        self.no_label.grid(row = 0, column = 0, padx = (10, 15), pady = (12, 12.5), sticky = 'n')
 
-        self.description_label = customtkinter.CTkLabel(self, text='Description', width = CELL_WIDTH, height = CELL_HEIGHT, font=('Arial',15,'bold'))
-        self.description_label.grid(row = 0, column = 1, padx = (10, 15), pady = (12, 12.5))
+        self.description_label = customtkinter.CTkLabel(self, text='Description', width = CELL_WIDTH, height = CELL_HEIGHT, font=LABEL_FONT)
+        self.description_label.grid(row = 0, column = 1, padx = (10, 15), pady = (12, 12.5), sticky = 'n')
 
-        self.amount_label = customtkinter.CTkLabel(self, text='Amount', width = CELL_WIDTH, height = CELL_HEIGHT, font=('Arial',15,'bold'))
-        self.amount_label.grid(row = 0, column = 2, padx = (10, 15), pady = (12, 12.5))    
+        self.amount_label = customtkinter.CTkLabel(self, text='Amount', width = CELL_WIDTH, height = CELL_HEIGHT, font=LABEL_FONT)
+        self.amount_label.grid(row = 0, column = 2, padx = (10, 15), pady = (12, 12.5), sticky = 'n')    
 
-        self.date_label = customtkinter.CTkLabel(self, text='Date', width = CELL_WIDTH, height = CELL_HEIGHT, font=('Arial',15,'bold'))
-        self.date_label.grid(row = 0, column = 3, padx = (10, 15), pady = (12, 12.5))
+        self.date_label = customtkinter.CTkLabel(self, text='Date', width = CELL_WIDTH, height = CELL_HEIGHT, font=LABEL_FONT)
+        self.date_label.grid(row = 0, column = 3, padx = (10, 15), pady = (12, 12.5), sticky = 'ne')
 
 
 
@@ -95,7 +95,7 @@ class App(customtkinter.CTk) :
         self.scrollable_main_frame.grid(row = 1, column = 1, padx = (0, 100), pady = (25, 50), sticky = 'nw')
 
         self.top_frame = top_frame(self)
-        self.top_frame.grid(row = 0, column = 1, padx = (0, 100), pady = (50, 0), sticky = 'nw')
+        self.top_frame.grid(row = 0, column = 1, padx = (0, 100), pady = (50, 0), sticky = 'n'+'s'+'e'+'w')
 
 
 
