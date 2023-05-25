@@ -2,7 +2,7 @@ import csv
 import customtkinter as csTK
 from datetime import date
 from values import *
-
+from CTkMessagebox import CTkMessagebox
 
 
 class cell :
@@ -60,7 +60,7 @@ class cell :
 
         label = csTK.CTkLabel(self.location, text=time, width = CELL_WIDTH, height = CELL_HEIGHT, font = CELL_FONT)
 
-        self.time = time #### 1!!
+        self.time = time 
         self.time_obj = label
 
     
@@ -80,12 +80,11 @@ class cell :
             return list(reader)
 
 
-    #current_id = read_table()[-1]['id'] + 1
-    #line_id_to_display = cell.all_lines[-1]
 
     @staticmethod
     def saved_data_amount() :
         return len(cell.read_table())
+
 
     def display_saved_data(self) :
         reader = cell.read_table()
@@ -103,31 +102,63 @@ class cell :
 
     @classmethod
     def save_data(cls) :
-        with open('data.csv', 'w', newline='') as file :
-            field_names = ['id', 'description', 'amount', 'time']
 
-            writer= csv.DictWriter(file, fieldnames = field_names)
+        if cell.value_check() :
 
-            writer.writeheader()
+            with open('data.csv', 'w', newline='') as file :
+                field_names = ['id', 'description', 'amount', 'time']
 
-            for line in cell.all_lines :
-                line_description = line.description_obj.get()
-                line_amount = line.amount_obj.get()
+                writer= csv.DictWriter(file, fieldnames = field_names)
 
-                writer.writerow({
-                    'id' : line.id,
-                    'description' : line_description,
-                    'amount' : line_amount,
-                    'time' : line.time
-                })
+                writer.writeheader()
 
+                for line in cell.all_lines :
+                    line_description = line.description_obj.get()
+                    line_amount = line.amount_obj.get()
 
-
-
-
+                    writer.writerow({
+                        'id' : line.id,
+                        'description' : line_description,
+                        'amount' : line_amount,
+                        'time' : line.time
+                    })
 
 
 
+    @staticmethod
+    def calcualte_total_money_amount() :
+
+        reader = cell.read_table()
+        sum = 0
+
+        for row in reader :
+            if row['amount'].strip() != '' :
+                sum += float(row['amount'])
+
+        return str(sum)
 
 
+    @staticmethod
+    def is_float(string):
+        try:
+            float(string)
+            return True
+        except ValueError:
+            return False
+
+
+    @classmethod
+    def value_check(cls) :
+        global check_control
+
+        for line in cell.all_lines :
+
+            amount = line.amount_obj.get()
+
+            if amount != '' and not cell.is_float(amount) :
+                CTkMessagebox(title="Error", message="Money amount must be digits", icon="cancel")
+                return False
+
+        else :
+            return True
 

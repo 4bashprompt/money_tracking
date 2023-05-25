@@ -3,6 +3,7 @@ from cell_class import cell
 from values import *
 from functools import partial
 
+
 class side_frame(customtkinter.CTkFrame) :
     def __init__(self, master) :
         super().__init__(master)
@@ -10,8 +11,18 @@ class side_frame(customtkinter.CTkFrame) :
         self.configure(width = 350, height = 700, border_width = 2, border_color = 'aquamarine2')
 
         self.save_button = customtkinter.CTkButton(self, text='Save', font=BUTTON_FONT, width=100, height=50, command = cell.save_data)
-        self.save_button.grid(row = 0, column = 0, padx = (25, 100), pady = (600, 25), sticky = 'sw')
+        self.save_button.grid(row = 2, column = 0, padx = (25, 100), pady = (400, 25), sticky = 'nw')
 
+        self.sum_label = customtkinter.CTkLabel(self, text='Total money :', font=LABEL_FONT)
+        self.sum_label.grid(row = 0, column = 0, padx = (25, 25), pady = (50, 25), sticky = 'nw')
+
+
+        money_amount = customtkinter.StringVar(value=cell.calcualte_total_money_amount())
+
+        self.sum = customtkinter.CTkLabel(self, textvariable=money_amount, font=LABEL_FONT)
+
+        self.sum.bind('<Key>', lambda event : money_amount.set(cell.calcualte_total_money_amount()))
+        self.sum.grid(row = 1, column = 0, padx = (25, 25), pady = (0, 25), sticky = 'sw')
 
 
 
@@ -94,7 +105,7 @@ class App(customtkinter.CTk) :
         super().__init__()
 
         self.title('MONEY TRACKING')
-        self.geometry('1300x750')
+        self.geometry('1400x750')
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         customtkinter.set_appearance_mode('dark') #make posibble to change to light mode
@@ -110,8 +121,6 @@ class App(customtkinter.CTk) :
 
         self.top_frame = top_frame(self)
         self.top_frame.grid(row = 0, column = 1, padx = (0, 100), pady = (50, 0), sticky = 'n'+'s'+'e'+'w')
-
-
 
 
 

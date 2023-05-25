@@ -1,8 +1,6 @@
 CELL_HEIGHT = 30
 CELL_WIDTH = 200
 
-CELL_COL = 0
-CELL_ROW = 0
 
 LABEL_FONT = ('Arial',20,'bold')
 BUTTON_FONT = ('Arial',15)
