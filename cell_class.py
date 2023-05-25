@@ -9,9 +9,9 @@ class cell :
     today = date.today()
     all_lines = []
 
-    def __init__(self, column, row, location) :
-        self.column = column
+    def __init__(self, row, column, location) :
         self.row = row
+        self.column = column
         self.location = location
 
         id = cell.get_current_id()
@@ -25,11 +25,11 @@ class cell :
         if cell.all_lines == [] :
             return 1
         else :
-            return cell.all_lines[-1].id
+            return cell.all_lines[-1].id + 1
 
 
     def __create_id_label(self) :
-        label = csTK.CTkLabel(self.location, text=id, width = CELL_WIDTH, height = CELL_HEIGHT, font = CELL_FONT)
+        label = csTK.CTkLabel(self.location, text=self.id, width = CELL_WIDTH, height = CELL_HEIGHT, font = CELL_FONT)
 
         self.id_obj = label
     
@@ -91,7 +91,7 @@ class cell :
         reader = cell.read_table()
 
         if reader :
-            row = reader[cell.get_current_id() - 1]
+            row = reader[self.id - 1]
 
             self.__create_id_label()
             self.__create_description_enrty(row['description'])

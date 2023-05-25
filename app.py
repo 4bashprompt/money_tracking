@@ -1,6 +1,7 @@
 import customtkinter
 from cell_class import cell
 from values import *
+from functools import partial
 
 class side_frame(customtkinter.CTkFrame) :
     def __init__(self, master) :
@@ -8,7 +9,7 @@ class side_frame(customtkinter.CTkFrame) :
 
         self.configure(width = 350, height = 700, border_width = 2, border_color = 'aquamarine2')
 
-        self.save_button = customtkinter.CTkButton(self, text='save', font=BUTTON_FONT, width=100, height=50, command = cell.save_data)
+        self.save_button = customtkinter.CTkButton(self, text='Save', font=BUTTON_FONT, width=100, height=50, command = cell.save_data)
         self.save_button.grid(row = 0, column = 0, padx = (25, 100), pady = (600, 25), sticky = 'sw')
 
 
@@ -37,16 +38,17 @@ class top_frame(customtkinter.CTkFrame) :
 
 
 class scrollable_main_frame(customtkinter.CTkScrollableFrame) :
-    def __init__(self, master, column, row) :
+    CELL_ROW = 0
+    CELL_COL = 0
+
+    def __init__(self, master) :
         super().__init__(master)
 
         self.configure(width=900, height=600, border_width=2, border_color='aquamarine2')
         
-        #self.my_button = customtkinter.CTkButton(self, text='hi')
-        #self.my_button.place(x = 50, y = 50)
 
         for _ in range(cell.saved_data_amount()) :
-            self.mycell = cell(column, row, self)
+            self.mycell = cell(scrollable_main_frame.CELL_ROW, scrollable_main_frame.CELL_COL, self)
 
             self.mycell.display_saved_data()
 
@@ -56,10 +58,18 @@ class scrollable_main_frame(customtkinter.CTkScrollableFrame) :
             self.mycell.amount_obj.grid(row = self.mycell.row, column = self.mycell.column + 2, padx = (10, 15), pady = (25, 25))
             self.mycell.time_obj.grid(row = self.mycell.row, column = self.mycell.column + 3, padx = (10, 15), pady = (25, 25))
 
-            row += 1
+            scrollable_main_frame.CELL_ROW += 1
 
-        for _ in range(10) :
-            self.mycell = cell(column, row, self)
+        self.new_line_button = customtkinter.CTkButton(self, text='New Line', command=partial(scrollable_main_frame.new_line, self))
+        self.new_line_button.grid(row = scrollable_main_frame.CELL_ROW, column = scrollable_main_frame.CELL_COL, padx = (40, 15), pady = (25, 25), sticky = 'sw')
+
+
+
+    
+    def new_line(self) :
+            self.mycell = cell(scrollable_main_frame.CELL_ROW, scrollable_main_frame.CELL_COL, self)
+
+            scrollable_main_frame.CELL_ROW += 1
 
             self.mycell.generate_new_line()
 
@@ -69,7 +79,9 @@ class scrollable_main_frame(customtkinter.CTkScrollableFrame) :
             self.mycell.amount_obj.grid(row = self.mycell.row, column = self.mycell.column + 2, padx = (10, 15), pady = (25, 25))
             self.mycell.time_obj.grid(row = self.mycell.row, column = self.mycell.column + 3, padx = (10, 15), pady = (25, 25))
 
-            row += 1
+            self.new_line_button.grid(row = scrollable_main_frame.CELL_ROW, column = scrollable_main_frame.CELL_COL, padx = (40, 15), pady = (25, 25), sticky = 'sw')
+
+
         
 
 
@@ -88,10 +100,12 @@ class App(customtkinter.CTk) :
         customtkinter.set_appearance_mode('dark') #make posibble to change to light mode
 
 
+    def run(self) :
+
         self.side_frame = side_frame(self)
         self.side_frame.grid(row = 0, column = 0, rowspan = 2, padx = (100, 25), pady = (50,50), sticky = 'n'+'s'+'e'+'w')
 
-        self.scrollable_main_frame = scrollable_main_frame(self, CELL_COL, CELL_ROW)
+        self.scrollable_main_frame = scrollable_main_frame(self)
         self.scrollable_main_frame.grid(row = 1, column = 1, padx = (0, 100), pady = (25, 50), sticky = 'nw')
 
         self.top_frame = top_frame(self)
@@ -104,7 +118,9 @@ class App(customtkinter.CTk) :
 
 
 
+if __name__ == '__main__' :
+    app = App()
 
-app = App()
+    app.run()
 
-app.mainloop()
+    app.mainloop()
