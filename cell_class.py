@@ -149,8 +149,6 @@ class cell :
 
     @classmethod
     def value_check(cls) :
-        global check_control
-
         for line in cell.all_lines :
 
             amount = line.amount_obj.get()
